@@ -63,50 +63,97 @@ export const ProjectDetail: React.FC = () => {
             <p className="mt-4 text-gray-600 text-lg max-w-3xl">{project.description}</p>
           </div>
 
-          {/* Main featured image */}
-          <div 
-            className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group mb-4"
-            onClick={() => openCarousel(0)}
-          >
-            <img
-              src={projectImages[0]}
-              alt={`${project.title} - Main`}
-              className="w-full h-[420px] md:h-[600px] object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-              <span className="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                Click to view full size
-              </span>
-            </div>
-          </div>
+          {/* Featured Image Gallery Grid */}
+          {(() => {
+            const heroImage = projectImages[0];
+            const sideImages = projectImages.slice(1, 3);   // up to 2 right-column images
+            const stripImages = projectImages.slice(3, 7);  // up to 4 bottom strip images
+            const extraCount = projectImages.length - 7;    // hidden images beyond strip
 
-          {/* Secondary images grid */}
-          {projectImages.length > 1 && (
-            <div className={`grid gap-4 mb-8 ${
-              projectImages.length === 2 ? 'grid-cols-1' :
-              projectImages.length === 3 ? 'grid-cols-1 md:grid-cols-2' :
-              'grid-cols-2 md:grid-cols-3'
-            }`}>
-              {projectImages.slice(1).map((image, index) => (
-                <div
-                  key={index + 1}
-                  className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group"
-                  onClick={() => openCarousel(index + 1)}
-                >
-                  <img
-                    src={image}
-                    alt={`${project.title} - ${index + 2}`}
-                    className="w-full h-[260px] md:h-[320px] object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                    <span className="text-white text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                      Click to view
-                    </span>
+            return (
+              <div className="mb-8 space-y-2">
+                {/* Top section: stacked on mobile, hero + right column on md+ */}
+                <div className="flex flex-col gap-2 md:flex-row md:h-[520px]">
+                  {/* Hero image */}
+                  <div
+                    className={`relative overflow-hidden rounded-lg shadow-lg cursor-pointer group flex-shrink-0 h-[260px] md:h-full ${
+                      sideImages.length === 0 ? 'w-full' : 'w-full md:w-2/3'
+                    }`}
+                    onClick={() => openCarousel(0)}
+                  >
+                    <img
+                      src={heroImage}
+                      alt={`${project.title} - Main`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                      <span className="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity drop-shadow">
+                        View full size
+                      </span>
+                    </div>
                   </div>
+
+                  {/* Side images: stacked below on mobile, right column on md+ */}
+                  {sideImages.length > 0 && (
+                    <div className="flex flex-col gap-2 md:flex-1">
+                      {sideImages.map((image, idx) => (
+                        <div
+                          key={idx + 1}
+                          className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group h-[260px] md:h-full md:flex-1"
+                          onClick={() => openCarousel(idx + 1)}
+                        >
+                          <img
+                            src={image}
+                            alt={`${project.title} - ${idx + 2}`}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                            <span className="text-white text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity drop-shadow">
+                              View
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              ))}
-            </div>
-          )}
+
+                {/* Bottom strip: thumbnails for image 4+ */}
+                {stripImages.length > 0 && (
+                  <div className={`grid gap-2 grid-cols-${stripImages.length}`} style={{ height: '160px' }}>
+                    {stripImages.map((image, idx) => {
+                      const globalIdx = idx + 3;
+                      const isLast = idx === stripImages.length - 1 && extraCount > 0;
+                      return (
+                        <div
+                          key={globalIdx}
+                          className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group"
+                          onClick={() => openCarousel(globalIdx)}
+                        >
+                          <img
+                            src={image}
+                            alt={`${project.title} - ${globalIdx + 1}`}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                          {isLast ? (
+                            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                              <span className="text-white text-2xl font-bold">+{extraCount + 1}</span>
+                            </div>
+                          ) : (
+                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                              <span className="text-white text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity drop-shadow">
+                                View
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })()}
 
           <div className="bg-gray-50 rounded-lg p-8 mb-12">
             <h2 className="text-2xl font-serif font-bold text-dark-900 mb-4">Project Details</h2>
