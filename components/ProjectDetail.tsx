@@ -63,61 +63,50 @@ export const ProjectDetail: React.FC = () => {
             <p className="mt-4 text-gray-600 text-lg max-w-3xl">{project.description}</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            <div 
-              className="md:col-span-2 md:row-span-2 relative overflow-hidden rounded-lg shadow-lg cursor-pointer group"
-              onClick={() => openCarousel(0)}
-            >
-              <img
-                src={projectImages[0]}
-                alt={`${project.title} - Main`}
-                className="w-full h-[500px] md:h-[600px] object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                <span className="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                  Click to view full size
-                </span>
-              </div>
+          {/* Main featured image */}
+          <div 
+            className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group mb-4"
+            onClick={() => openCarousel(0)}
+          >
+            <img
+              src={projectImages[0]}
+              alt={`${project.title} - Main`}
+              className="w-full h-[420px] md:h-[600px] object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+              <span className="text-white text-lg font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                Click to view full size
+              </span>
             </div>
-
-            {projectImages.slice(1, 4).map((image, index) => (
-              <div
-                key={index + 1}
-                className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group"
-                onClick={() => openCarousel(index + 1)}
-              >
-                <img
-                  src={image}
-                  alt={`${project.title} - ${index + 2}`}
-                  className="w-full h-[240px] md:h-[290px] object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                  <span className="text-white text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
-                    Click to view
-                  </span>
-                </div>
-              </div>
-            ))}
-
-            {projectImages.length > 4 && (
-              <div className="md:col-span-2 grid grid-cols-2 md:grid-cols-3 gap-4">
-                {projectImages.slice(4).map((image, index) => (
-                  <div
-                    key={index + 4}
-                    className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group"
-                    onClick={() => openCarousel(index + 4)}
-                  >
-                    <img
-                      src={image}
-                      alt={`${project.title} - ${index + 5}`}
-                      className="w-full h-[200px] object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300" />
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
+
+          {/* Secondary images grid */}
+          {projectImages.length > 1 && (
+            <div className={`grid gap-4 mb-8 ${
+              projectImages.length === 2 ? 'grid-cols-1' :
+              projectImages.length === 3 ? 'grid-cols-1 md:grid-cols-2' :
+              'grid-cols-2 md:grid-cols-3'
+            }`}>
+              {projectImages.slice(1).map((image, index) => (
+                <div
+                  key={index + 1}
+                  className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group"
+                  onClick={() => openCarousel(index + 1)}
+                >
+                  <img
+                    src={image}
+                    alt={`${project.title} - ${index + 2}`}
+                    className="w-full h-[260px] md:h-[320px] object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                    <span className="text-white text-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity">
+                      Click to view
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           <div className="bg-gray-50 rounded-lg p-8 mb-12">
             <h2 className="text-2xl font-serif font-bold text-dark-900 mb-4">Project Details</h2>
