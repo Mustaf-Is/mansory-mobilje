@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail } from 'lucide-react';
 
-import Logo from '../assets/images/Logo.png';
+import Logo from '../assets/images/Logo.svg';
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,8 +21,9 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { name: 'Home', href: '#' },
     { name: 'Customize', href: '#customize' },
-    { name: 'About', href: '#about' },
+    { name: 'Services', href: '#services' },
     { name: 'Our Work', href: '#work' },
+    { name: 'About', href: '#about' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -53,14 +54,17 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white shadow-lg py-3' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+      scrolled || isOpen ? 'bg-white shadow-lg py-0' : 'bg-transparent py-6'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
           <a href="#" onClick={(e) => handleNavClick(e, '#')} className="flex items-center">
             <img 
               src={Logo} 
               alt="Mansory Mobilje" 
-              className={`h-12 md:h-14 w-auto transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert md:brightness-100 md:invert-0'}`}
+              className={`w-auto transition-all duration-300 ${scrolled || isOpen ? 'h-[80px]' : 'h-[100px]'} `}
+              style={{ width: 'auto', maxWidth: 'none', minWidth: '0', height: undefined }}
             />
           </a>
 
@@ -75,19 +79,12 @@ export const Navbar: React.FC = () => {
                 {link.name}
               </a>
             ))}
-            <a 
-              href="#contact"
-              onClick={(e) => handleNavClick(e, '#contact')}
-              className="bg-gold-400 text-white px-5 py-2 rounded-sm text-sm font-semibold uppercase tracking-wider hover:bg-gold-500 transition-all"
-            >
-              Get a Quote
-            </a>
           </div>
 
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 ${scrolled ? 'text-dark-900' : 'text-white'}`}
+              className={`p-2 ${scrolled || isOpen ? 'text-dark-900' : 'text-white'}`}
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>

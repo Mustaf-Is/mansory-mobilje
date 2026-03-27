@@ -378,9 +378,6 @@ export const ProductCustomizer: React.FC = () => {
                   <p className="text-sm text-gray-500 mb-6">
                     * Use arrows or indicators to browse different bed styles. Each style has its own color options.
                   </p>
-                  <button className="w-full py-4 bg-dark-900 text-white font-bold uppercase tracking-widest hover:bg-gold-500 transition-colors rounded-sm shadow-lg">
-                    Request This Design
-                  </button>
                 </div>
               </div>
             </div>

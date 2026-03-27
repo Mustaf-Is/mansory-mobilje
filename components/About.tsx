@@ -43,9 +43,6 @@ export const About: React.FC = () => {
               <p className="mb-4">
                 We create a wide range of solutions, including bedrooms, wardrobes, custom-designed sofas, dining rooms, and sideboards. From the initial concept to final delivery, we ensure transparent communication and the highest standards of quality.
               </p>
-              <p>
-                All you need to do is choose your preferred design, colors, and materials—our experienced team will take care of everything else.
-              </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
@@ -72,7 +69,7 @@ export const About: React.FC = () => {
               alt="Workshop Craftsman" 
               className="rounded-lg shadow-2xl w-full h-[600px] object-cover"
             />
-            <div className="absolute bottom-10 left-[-20px] bg-white p-6 shadow-xl rounded-r-lg border-l-4 border-gold-400 max-w-xs hidden md:block">
+            <div className="absolute bottom-6 left-0 sm:left-[-20px] bg-white p-4 sm:p-6 shadow-xl rounded-r-lg border-l-4 border-gold-400 max-w-[250px] sm:max-w-xs">
               <p className="font-serif italic text-xl text-dark-900">"Transforming ideas into functional and elegant furniture."</p>
             </div>
           </div>

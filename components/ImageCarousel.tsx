@@ -11,6 +11,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, initialInd
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [showSwipeHint, setShowSwipeHint] = useState(images.length > 1);
   const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const minSwipeDistance = 50;
@@ -47,8 +48,10 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, initialInd
 
     if (isLeftSwipe) {
       goToNext();
+      setShowSwipeHint(false);
     } else if (isRightSwipe) {
       goToPrevious();
+      setShowSwipeHint(false);
     }
 
     setTouchStart(null);
@@ -69,9 +72,12 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, initialInd
     window.addEventListener('keydown', handleKeyDown);
     document.body.style.overflow = 'hidden';
 
+    const hintTimer = setTimeout(() => setShowSwipeHint(false), 5000);
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'unset';
+      clearTimeout(hintTimer);
     };
   }, []);
 
@@ -103,6 +109,16 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, initialInd
       >
         <ChevronRight size={48} />
       </button>
+
+      {showSwipeHint && (
+        <div className="absolute top-14 left-1/2 -translate-x-1/2 z-20 md:hidden animate-pulse">
+          <div className="flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full">
+            <ChevronLeft size={16} />
+            <span>Swipe to browse</span>
+            <ChevronRight size={16} />
+          </div>
+        </div>
+      )}
 
       <div 
         ref={imageContainerRef}

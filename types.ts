@@ -9,7 +9,7 @@ export interface FurnitureItem {
   name: string;
   category: 'Bedroom' | 'Living Room' | 'Storage';
   image: string;
-  baseColor: string; // The optimal base color for the image to be tinted
+  baseColor: string; 
 }
 
 export interface Project {
