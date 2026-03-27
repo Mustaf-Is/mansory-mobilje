@@ -35,19 +35,9 @@ export const ProjectDetail: React.FC = () => {
     setCarouselOpen(true);
   };
 
-  const handleRequestDesign = () => {
-    const element = document.getElementById('contact');
-    if (element) {
-      navigate('/');
-      setTimeout(() => {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
-  };
-
   return (
     <>
-      <div className="min-h-screen bg-white pt-20">
+      <div className="min-h-screen bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <button
             onClick={() => navigate('/')}
@@ -60,24 +50,23 @@ export const ProjectDetail: React.FC = () => {
           <div className="mb-8">
             <span className="text-gold-400 font-bold tracking-widest uppercase text-sm">{project.category}</span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-dark-900 mt-2">{project.title}</h1>
-            <p className="mt-4 text-gray-600 text-lg max-w-3xl">{project.description}</p>
+            <p className="mt-4 text-gray-600 text-lg">{project.description}</p>
           </div>
 
           {/* Featured Image Gallery Grid */}
           {(() => {
             const heroImage = projectImages[0];
-            const sideImages = projectImages.slice(1, 3);   // up to 2 right-column images
-            const stripImages = projectImages.slice(3, 7);  // up to 4 bottom strip images
-            const extraCount = projectImages.length - 7;    // hidden images beyond strip
+            const isTwoImages = projectImages.length === 2;
+            const sideImages = projectImages.slice(1, 3);
+            const stripImages = projectImages.slice(3, 7);
+            const extraCount = projectImages.length - 7;
 
             return (
               <div className="mb-8 space-y-2">
-                {/* Top section: stacked on mobile, hero + right column on md+ */}
                 <div className="flex flex-col gap-2 md:flex-row md:h-[520px]">
-                  {/* Hero image */}
                   <div
                     className={`relative overflow-hidden rounded-lg shadow-lg cursor-pointer group flex-shrink-0 h-[260px] md:h-full ${
-                      sideImages.length === 0 ? 'w-full' : 'w-full md:w-2/3'
+                      sideImages.length === 0 ? 'w-full' : isTwoImages ? 'w-full md:w-1/2' : 'w-full md:w-2/3'
                     }`}
                     onClick={() => openCarousel(0)}
                   >
@@ -93,9 +82,8 @@ export const ProjectDetail: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Side images: stacked below on mobile, right column on md+ */}
                   {sideImages.length > 0 && (
-                    <div className="flex flex-col gap-2 md:flex-1">
+                    <div className={`flex flex-col gap-2 ${isTwoImages ? 'md:w-1/2' : 'md:flex-1'}`}>
                       {sideImages.map((image, idx) => (
                         <div
                           key={idx + 1}
@@ -173,14 +161,6 @@ export const ProjectDetail: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-center pb-12">
-            <button
-              onClick={handleRequestDesign}
-              className="bg-gold-400 text-white px-12 py-4 rounded-lg font-bold uppercase tracking-wider hover:bg-gold-500 transition-all transform hover:scale-105 shadow-lg"
-            >
-              Request This Design
-            </button>
-          </div>
         </div>
       </div>
 

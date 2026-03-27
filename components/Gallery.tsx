@@ -34,7 +34,7 @@ export const Gallery: React.FC = () => {
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                 <span className="text-gold-400 text-xs font-bold uppercase tracking-wider mb-1">{project.category}</span>
                 <h3 className="text-white text-xl font-serif font-bold">{project.title}</h3>
               </div>
@@ -42,14 +42,6 @@ export const Gallery: React.FC = () => {
           ))}
         </div>
         
-        <div className="mt-12 text-center">
-          <button 
-            onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
-            className="inline-block border-b-2 border-dark-900 text-dark-900 font-bold uppercase tracking-widest pb-1 hover:text-gold-400 hover:border-gold-400 transition-all"
-          >
-            View All Projects
-          </button>
-        </div>
       </div>
     </section>
   );

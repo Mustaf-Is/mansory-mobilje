@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
 
 const heroImages = [
-  "https://images.unsplash.com/photo-1505693416388-b0346ef414b9?q=80&w=2070&auto=format&fit=crop", // Modern Bed
-  "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?q=80&w=2070&auto=format&fit=crop", // Sofa
-  "https://images.unsplash.com/photo-1595515106969-1ce29566ff1c?q=80&w=2070&auto=format&fit=crop" // Wardrobe/Room
+  "/assets/images/hero-1.jpg",
+  "/assets/images/hero-2.png",
+  "/assets/images/hero-3.png"
 ];
 
 export const Hero: React.FC = () => {
@@ -28,13 +28,17 @@ export const Hero: React.FC = () => {
           }`}
         >
           <img
+            key={index === currentImage ? `active-${currentImage}` : `idle-${index}`}
             src={img}
             alt="Mansory Mobilje Furniture"
-            className="w-full h-full object-cover animate-ken-burns"
-            style={{ animation: index === currentImage ? 'kenBurns 20s infinite alternate' : 'none' }}
+            className="w-full h-full object-cover"
+            style={{
+              animation: index === currentImage ? 'kenBurns 8s ease-out forwards' : 'none',
+              transform: index !== currentImage ? 'scale(1.05)' : undefined,
+            }}
           />
           {/* Dark Overlay for text readability */}
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.15) 100%)', backdropFilter: 'blur(1px)' }} />
         </div>
       ))}
 
@@ -55,6 +59,10 @@ export const Hero: React.FC = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in-up delay-300">
             <a
               href="#customize"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#customize')?.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="group px-8 py-4 bg-gold-400 text-white font-semibold rounded-sm hover:bg-gold-500 transition-all flex items-center justify-center"
             >
               Start Customizing
@@ -62,6 +70,10 @@ export const Hero: React.FC = () => {
             </a>
             <a
               href="#work"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' });
+              }}
               className="px-8 py-4 bg-transparent border border-white text-white font-semibold rounded-sm hover:bg-white hover:text-dark-900 transition-all"
             >
               View Our Work
@@ -73,11 +85,8 @@ export const Hero: React.FC = () => {
       {/* CSS Animation Keyframes */}
       <style>{`
         @keyframes kenBurns {
-          0% { transform: scale(1); }
-          100% { transform: scale(1.1); }
-        }
-        .animate-ken-burns {
-          animation: kenBurns 20s infinite alternate;
+          0% { transform: scale(1.05); }
+          100% { transform: scale(1.12); }
         }
         .animate-fade-in-up {
           animation: fadeInUp 0.8s ease-out forwards;
