@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, Phone, Mail } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 import Logo from '../assets/images/Logo.svg';
 
@@ -9,6 +10,7 @@ export const Navbar: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,12 +21,12 @@ export const Navbar: React.FC = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#' },
-    { name: 'Customize', href: '#customize' },
-    { name: 'Services', href: '#services' },
-    { name: 'Our Work', href: '#work' },
-    { name: 'About', href: '#about' },
-    { name: 'Contact', href: '#contact' },
+    { name: t.nav.home[lang], href: '#' },
+    { name: t.nav.about[lang], href: '#about' },
+    { name: t.nav.customize[lang], href: '#customize' },
+    { name: t.nav.services[lang], href: '#services' },
+    { name: t.nav.ourWork[lang], href: '#work' },
+    { name: t.nav.contact[lang], href: '#contact' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -79,9 +81,29 @@ export const Navbar: React.FC = () => {
                 {link.name}
               </a>
             ))}
+            <button
+              onClick={() => setLang(lang === 'sq' ? 'en' : 'sq')}
+              className={`ml-2 px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full border transition-colors ${
+                scrolled
+                  ? 'border-gray-300 text-gray-700 hover:border-gold-400 hover:text-gold-400'
+                  : 'border-white/50 text-white hover:border-gold-400 hover:text-gold-400'
+              }`}
+            >
+              {lang === 'sq' ? 'EN' : 'SQ'}
+            </button>
           </div>
 
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={() => setLang(lang === 'sq' ? 'en' : 'sq')}
+              className={`px-2.5 py-1 text-xs font-bold uppercase tracking-wider rounded-full border transition-colors ${
+                scrolled || isOpen
+                  ? 'border-gray-300 text-gray-700 hover:border-gold-400'
+                  : 'border-white/50 text-white hover:border-gold-400'
+              }`}
+            >
+              {lang === 'sq' ? 'EN' : 'SQ'}
+            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`p-2 ${scrolled || isOpen ? 'text-dark-900' : 'text-white'}`}

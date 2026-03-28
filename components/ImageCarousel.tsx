@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 interface ImageCarouselProps {
   images: string[];
@@ -13,6 +14,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, initialInd
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
   const [showSwipeHint, setShowSwipeHint] = useState(images.length > 1);
   const imageContainerRef = useRef<HTMLDivElement>(null);
+  const { lang, t } = useLanguage();
 
   const minSwipeDistance = 50;
 
@@ -114,7 +116,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({ images, initialInd
         <div className="absolute top-14 left-1/2 -translate-x-1/2 z-20 md:hidden animate-pulse">
           <div className="flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white text-sm px-4 py-2 rounded-full">
             <ChevronLeft size={16} />
-            <span>Swipe to browse</span>
+            <span>{t.carousel.swipeToBrowse[lang]}</span>
             <ChevronRight size={16} />
           </div>
         </div>
