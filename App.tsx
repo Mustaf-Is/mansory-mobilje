@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { LanguageProvider } from './i18n/LanguageContext';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { ProductCustomizer } from './components/ProductCustomizer';
@@ -24,14 +25,16 @@ function HomePage() {
 
 function App() {
   return (
-    <Router>
-      <div className="font-sans text-gray-900 bg-white">
-        <Routes>
-          <Route path="/" element={<><Navbar /><HomePage /></>} />
-          <Route path="/project/:id" element={<ProjectDetail />} />
-        </Routes>
-      </div>
-    </Router>
+    <LanguageProvider>
+      <Router>
+        <div className="font-sans text-gray-900 bg-white">
+          <Routes>
+            <Route path="/" element={<><Navbar /><HomePage /></>} />
+            <Route path="/project/:id" element={<ProjectDetail />} />
+          </Routes>
+        </div>
+      </Router>
+    </LanguageProvider>
   );
 }
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
+import { useLanguage } from '../i18n/LanguageContext';
 
 const heroImages = [
   "/assets/images/hero-1.jpg",
@@ -9,6 +10,7 @@ const heroImages = [
 
 export const Hero: React.FC = () => {
   const [currentImage, setCurrentImage] = useState(0);
+  const { lang, t } = useLanguage();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -19,7 +21,6 @@ export const Hero: React.FC = () => {
 
   return (
     <section className="relative h-screen flex items-center overflow-hidden">
-      {/* Background Slider */}
       {heroImages.map((img, index) => (
         <div
           key={index}
@@ -37,24 +38,21 @@ export const Hero: React.FC = () => {
               transform: index !== currentImage ? 'scale(1.05)' : undefined,
             }}
           />
-          {/* Dark Overlay for text readability */}
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.15) 100%)', backdropFilter: 'blur(1px)' }} />
         </div>
       ))}
 
-      {/* Hero Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
         <div className="md:max-w-2xl">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-white uppercase bg-gold-400 rounded-sm animate-fade-in-up">
-            Custom Furniture Manufacturer
+            {t.hero.badge[lang]}
           </span>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight mb-6 animate-fade-in-up delay-100">
-            Crafting Comfort, <br />
-            <span className="text-gold-400">Designing Dreams.</span>
+            {t.hero.titleLine1[lang]} <br />
+            <span className="text-gold-400">{t.hero.titleLine2[lang]}</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-200 mb-8 font-light leading-relaxed animate-fade-in-up delay-200">
-            From bespoke bedrooms to custom-designed sofas and wardrobes. 
-            We transform your living spaces with exceptional craftsmanship tailored to your unique style.
+            {t.hero.description[lang]}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start animate-fade-in-up delay-300">
             <a
@@ -65,7 +63,7 @@ export const Hero: React.FC = () => {
               }}
               className="group px-8 py-4 bg-gold-400 text-white font-semibold rounded-sm hover:bg-gold-500 transition-all flex items-center justify-center"
             >
-              Start Customizing
+              {t.hero.ctaCustomize[lang]}
               <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
             </a>
             <a
@@ -76,13 +74,12 @@ export const Hero: React.FC = () => {
               }}
               className="px-8 py-4 bg-transparent border border-white text-white font-semibold rounded-sm hover:bg-white hover:text-dark-900 transition-all"
             >
-              View Our Work
+              {t.hero.ctaWork[lang]}
             </a>
           </div>
         </div>
       </div>
 
-      {/* CSS Animation Keyframes */}
       <style>{`
         @keyframes kenBurns {
           0% { transform: scale(1.05); }
