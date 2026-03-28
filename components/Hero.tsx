@@ -42,7 +42,7 @@ export const Hero: React.FC = () => {
         </div>
       ))}
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left pt-24 md:pt-0">
         <div className="md:max-w-2xl">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest text-white uppercase bg-gold-400 rounded-sm animate-fade-in-up">
             {t.hero.badge[lang]}
