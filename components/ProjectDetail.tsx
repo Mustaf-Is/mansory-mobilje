@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { projects } from '../data/projects';
@@ -14,6 +14,7 @@ export const ProjectDetail: React.FC = () => {
 
   const project = projects.find(p => p.id === Number(id));
   const pt = t.projects.items.find(p => p.id === Number(id));
+  const closeCarousel = useCallback(() => setCarouselOpen(false), []);
 
   const getCategoryTranslation = (category: string) => {
     const cat = t.projects.categories[category as keyof typeof t.projects.categories];
@@ -74,8 +75,10 @@ export const ProjectDetail: React.FC = () => {
             return (
               <div className="mb-8 space-y-2">
                 <div className="flex flex-col gap-2 md:flex-row md:h-[520px]">
-                  <div
-                    className={`relative overflow-hidden rounded-lg shadow-lg cursor-pointer group flex-shrink-0 h-[260px] md:h-full ${
+                  <button
+                    type="button"
+                    aria-label={`${t.project.viewFullSize[lang]}: ${title}`}
+                    className={`block text-left relative overflow-hidden rounded-lg shadow-lg cursor-pointer group flex-shrink-0 h-[260px] md:h-full focus-visible:outline focus-visible:outline-4 focus-visible:outline-gold-400 ${
                       sideImages.length === 0 ? 'w-full' : isTwoImages ? 'w-full md:w-1/2' : 'w-full md:w-2/3'
                     }`}
                     onClick={() => openCarousel(0)}
@@ -90,14 +93,16 @@ export const ProjectDetail: React.FC = () => {
                         {t.project.viewFullSize[lang]}
                       </span>
                     </div>
-                  </div>
+                  </button>
 
                   {sideImages.length > 0 && (
                     <div className={`flex flex-col gap-2 ${isTwoImages ? 'md:w-1/2' : 'md:flex-1'}`}>
                       {sideImages.map((image, idx) => (
-                        <div
+                        <button
+                          type="button"
                           key={idx + 1}
-                          className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group h-[260px] md:h-full md:flex-1"
+                          aria-label={`${t.project.view[lang]}: ${title} (${idx + 2})`}
+                          className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group h-[260px] md:h-full md:flex-1 focus-visible:outline focus-visible:outline-4 focus-visible:outline-gold-400"
                           onClick={() => openCarousel(idx + 1)}
                         >
                           <img
@@ -110,21 +115,25 @@ export const ProjectDetail: React.FC = () => {
                               {t.project.view[lang]}
                             </span>
                           </div>
-                        </div>
+                        </button>
                       ))}
                     </div>
                   )}
                 </div>
 
                 {stripImages.length > 0 && (
-                  <div className={`grid gap-2 grid-cols-${stripImages.length}`} style={{ height: '160px' }}>
+                  <div className="grid gap-2" style={{ height: '160px', gridTemplateColumns: `repeat(${stripImages.length}, minmax(0, 1fr))` }}>
                     {stripImages.map((image, idx) => {
                       const globalIdx = idx + 3;
                       const isLast = idx === stripImages.length - 1 && extraCount > 0;
                       return (
-                        <div
+                        <button
+                          type="button"
                           key={globalIdx}
-                          className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group"
+                          aria-label={isLast
+                            ? `${t.project.view[lang]}: ${title} (${extraCount + 1} ${lang === 'sq' ? 'imazhe të tjera' : 'more images'})`
+                            : `${t.project.view[lang]}: ${title} (${globalIdx + 1})`}
+                          className="relative overflow-hidden rounded-lg shadow-lg cursor-pointer group focus-visible:outline focus-visible:outline-4 focus-visible:outline-gold-400"
                           onClick={() => openCarousel(globalIdx)}
                         >
                           <img
@@ -143,7 +152,7 @@ export const ProjectDetail: React.FC = () => {
                               </span>
                             </div>
                           )}
-                        </div>
+                        </button>
                       );
                     })}
                   </div>
@@ -176,8 +185,9 @@ export const ProjectDetail: React.FC = () => {
       {carouselOpen && (
         <ImageCarousel
           images={projectImages}
+          imageAltPrefix={title}
           initialIndex={carouselStartIndex}
-          onClose={() => setCarouselOpen(false)}
+          onClose={closeCarousel}
         />
       )}
     </>

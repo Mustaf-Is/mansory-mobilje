@@ -1,15 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { projects } from '../data/projects';
 import { useLanguage } from '../i18n/LanguageContext';
 
 export const Gallery: React.FC = () => {
-  const navigate = useNavigate();
   const { lang, t } = useLanguage();
-
-  const handleProjectClick = (projectId: number) => {
-    navigate(`/project/${projectId}`);
-  };
 
   const getProjectTranslation = (projectId: number) => {
     return t.projects.items.find(p => p.id === projectId);
@@ -35,15 +30,18 @@ export const Gallery: React.FC = () => {
           {projects.map((project) => {
             const pt = getProjectTranslation(project.id);
             return (
-              <div 
+              <Link
                 key={project.id} 
-                className="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer"
-                onClick={() => handleProjectClick(project.id)}
+                to={`/project/${project.id}`}
+                aria-label={`${pt ? pt.title[lang] : project.title} — ${getCategoryTranslation(project.category)}`}
+                className="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer focus-visible:outline focus-visible:outline-4 focus-visible:outline-gold-400"
               >
                 <div className="aspect-w-4 aspect-h-3 h-80">
                   <img 
                     src={project.image} 
                     alt={pt ? pt.title[lang] : project.title} 
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                 </div>
@@ -51,7 +49,7 @@ export const Gallery: React.FC = () => {
                   <span className="text-gold-400 text-xs font-bold uppercase tracking-wider mb-1">{getCategoryTranslation(project.category)}</span>
                   <h3 className="text-white text-xl font-serif font-bold">{pt ? pt.title[lang] : project.title}</h3>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

@@ -106,6 +106,10 @@ export const Navbar: React.FC = () => {
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
+              type="button"
+              aria-label={isOpen ? t.nav.closeMenu[lang] : t.nav.openMenu[lang]}
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
               className={`p-2 ${scrolled || isOpen ? 'text-dark-900' : 'text-white'}`}
             >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
@@ -114,7 +118,7 @@ export const Navbar: React.FC = () => {
         </div>
       </div>
 
-      <div className={`md:hidden absolute top-full left-0 w-full bg-white shadow-xl transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible h-0'}`}>
+      <div id="mobile-navigation" className={`md:hidden absolute top-full left-0 w-full bg-white shadow-xl transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible h-0'}`}>
         <div className="flex flex-col px-4 py-6 space-y-4">
           {navLinks.map((link) => (
             <a
