@@ -12,7 +12,7 @@ Mansory Mobilje is a small showcase website for a custom furniture maker based i
 
 ## Built with
 
-The site uses React and TypeScript, with Vite for development and production builds. React Router handles the project detail routes, Lucide supplies the interface icons, and Tailwind CSS is loaded from its CDN in `index.html`.
+The site uses React and TypeScript, with Vite for development and production builds. React Router handles the project detail routes, Lucide supplies the interface icons, and Tailwind CSS is compiled into the production stylesheet by Vite.
 
 ## Project layout
 
@@ -20,8 +20,11 @@ The site uses React and TypeScript, with Vite for development and production bui
 - `components/` — navigation, customizer, gallery, contact, and other page sections
 - `data/projects.ts` — project descriptions and gallery images
 - `i18n/` — Albanian and English translations and language state
-- `assets/images/` — furniture, project, and brand images
-- `DEPLOYMENT.md` — notes for publishing the site
+- `assets/images/` — furniture, project, and brand images (raster images are optimized as WebP)
+
+## Hosting note
+
+Project detail pages use client-side routes such as `/project/1`. On a static host, configure a fallback so direct requests to app routes serve `index.html`.
 
 ## Contact
 

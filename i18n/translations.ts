@@ -2,6 +2,8 @@ export type Language = 'sq' | 'en';
 
 export const translations = {
   nav: {
+    openMenu: { sq: 'Hap menynë', en: 'Open navigation menu' },
+    closeMenu: { sq: 'Mbyll menynë', en: 'Close navigation menu' },
     home: { sq: 'Ballina', en: 'Home' },
     about: { sq: 'Rreth Nesh', en: 'About' },
     customize: { sq: 'Personalizo', en: 'Customize' },
@@ -66,6 +68,7 @@ export const translations = {
     },
     items: [
       {
+        id: 'bedrooms',
         title: { sq: 'Dhoma Gjumi', en: 'Bedrooms' },
         description: {
           sq: 'Kompletet e plota të dhomës së gjumit të punuara sipas dimensioneve dhe stilit tuaj — nga minimalizmi modern te eleganca klasike. Ne dizajnojmë dhe ndërtojmë çdo pjesë për hapësirën tuaj.',
@@ -73,6 +76,7 @@ export const translations = {
         },
       },
       {
+        id: 'wardrobes',
         title: { sq: 'Dollapë', en: 'Wardrobes' },
         description: {
           sq: 'Dollapë me porosi të integruar dhe të pavarur me zgjidhje të zgjuara ruajtjeje. Zgjidhni planimetrinë, përfundimin dhe pajisjet për një dollap që funksionon aq bukur sa duket.',
@@ -80,6 +84,7 @@ export const translations = {
         },
       },
       {
+        id: 'customFurniture',
         title: { sq: 'Mobilje me Porosi', en: 'Custom Furniture' },
         description: {
           sq: 'Keni një vizion unik? Ne e sjellim në jetë. Nga dhomat e ngrënies dhe anësore deri te njësitë e TV-së dhe raftet — pjesë plotësisht të personalizuara sipas shtëpisë dhe shijes suaj.',
@@ -87,6 +92,7 @@ export const translations = {
         },
       },
       {
+        id: 'sofas',
         title: { sq: 'Divane', en: 'Sofas' },
         description: {
           sq: 'Divane të punuara me dorë, të dizajnuara rreth rehatisë dhe estetikës suaj. Zgjidhni pëlhurën, ngjyrën, madhësinë dhe konfigurimin për një pjesë që e përcakton hapësirën tuaj të jetesës.',
@@ -112,6 +118,7 @@ export const translations = {
     },
     features: [
       {
+        id: 'materials',
         title: { sq: 'Materiale Premium', en: 'Premium Materials' },
         description: {
           sq: 'Punojmë me materiale të nivelit më të lartë për të siguruar mjeshtëri dhe qëndrueshmëri të jashtëzakonshme.',
@@ -119,6 +126,7 @@ export const translations = {
         },
       },
       {
+        id: 'customDesign',
         title: { sq: 'Dizajn me Porosi', en: 'Tailor-Made Design' },
         description: {
           sq: 'Çdo pjesë është punuar me kujdes për t\'iu përshtatur preferencave dhe dimensioneve tuaja specifike.',
@@ -126,6 +134,7 @@ export const translations = {
         },
       },
       {
+        id: 'delivery',
         title: { sq: 'Dërgesë & Montim', en: 'Delivery & Install' },
         description: {
           sq: 'Ofrojmë dërgesë dhe montim profesional në gjithë Kosovën dhe vendet fqinje.',
@@ -133,6 +142,7 @@ export const translations = {
         },
       },
       {
+        id: 'experience',
         title: { sq: 'Mbi 7 Vite Përvojë', en: '7+ Years Experience' },
         description: {
           sq: 'Një ekip i përkushtuar profesionistësh që transformojnë idetë në realitet elegant që nga viti 2016.',
@@ -179,6 +189,10 @@ export const translations = {
   },
   carousel: {
     swipeToBrowse: { sq: 'Rrëshqitni për të shfletuar', en: 'Swipe to browse' },
+    close: { sq: 'Mbyll galerinë', en: 'Close gallery' },
+    previousImage: { sq: 'Imazhi i mëparshëm', en: 'Previous image' },
+    nextImage: { sq: 'Imazhi tjetër', en: 'Next image' },
+    goToImage: { sq: 'Shko te imazhi', en: 'Go to image' },
   },
   projects: {
     categories: {

@@ -1,25 +1,25 @@
-import { Project } from '../types';
+import type { Project } from '../types';
 
-import proj1Main from '../assets/images/proj_1.jpg';
-import proj1Img2 from '../assets/images/proj_1-img_two.jpg';
+import proj1Main from '../assets/images/proj_1.webp';
+import proj1Img2 from '../assets/images/proj_1-img_two.webp';
 
-import proj2Img1 from '../assets/images/proj_2-img_one.jpg';
-import proj2Img2 from '../assets/images/proj_2-img_two.jpg';
+import proj2Img1 from '../assets/images/proj_2-img_one.webp';
+import proj2Img2 from '../assets/images/proj_2-img_two.webp';
 
-import proj3Img1 from '../assets/images/proj_3-img_one.jpg';
-import proj3Img2 from '../assets/images/proj_3-img_two.jpg';
-import proj3Img3 from '../assets/images/proj_3-img_three.jpg';
+import proj3Img1 from '../assets/images/proj_3-img_one.webp';
+import proj3Img2 from '../assets/images/proj_3-img_two.webp';
+import proj3Img3 from '../assets/images/proj_3-img_three.webp';
 
-import proj4Img1 from '../assets/images/proj_4-img_one.jpg';
-import proj4Img2 from '../assets/images/proj_4-img_two.jpg';
-import proj4Img3 from '../assets/images/proj_4-img_three.jpg';
+import proj4Img1 from '../assets/images/proj_4-img_one.webp';
+import proj4Img2 from '../assets/images/proj_4-img_two.webp';
+import proj4Img3 from '../assets/images/proj_4-img_three.webp';
 
-import proj5Img1 from '../assets/images/proj_5-img-1.jpg';
-import proj5Img2 from '../assets/images/proj_5-img-2.jpg';
+import proj5Img1 from '../assets/images/proj_5-img-1.webp';
+import proj5Img2 from '../assets/images/proj_5-img-2.webp';
 
-import proj6Img1 from '../assets/images/proj_6-img-1.jpg';
-import proj6Img2 from '../assets/images/proj_6-img-2.jpg';
-import proj6Img3 from '../assets/images/proj-6-img-3.jpg';
+import proj6Img1 from '../assets/images/proj_6-img-1.webp';
+import proj6Img2 from '../assets/images/proj_6-img-2.webp';
+import proj6Img3 from '../assets/images/proj-6-img-3.webp';
 
 export const projects: Project[] = [
   { 

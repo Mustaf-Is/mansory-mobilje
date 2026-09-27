@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 
-import hero1 from '../assets/images/hero-1.jpg';
-import hero2 from '../assets/images/hero-2.png';
-import hero3 from '../assets/images/hero-3.png';
+import hero1 from '../assets/images/hero-1.webp';
+import hero2 from '../assets/images/hero-2.webp';
+import hero3 from '../assets/images/hero-3.webp';
 
 const heroImages = [hero1, hero2, hero3];
 
@@ -31,7 +31,7 @@ export const Hero: React.FC = () => {
           <img
             key={index === currentImage ? `active-${currentImage}` : `idle-${index}`}
             src={img}
-            alt="Mansory Mobilje Furniture"
+            alt=""
             className="w-full h-full object-cover"
             style={{
               animation: index === currentImage ? 'kenBurns 8s ease-out forwards' : 'none',

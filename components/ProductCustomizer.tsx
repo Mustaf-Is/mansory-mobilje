@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../i18n/LanguageContext';
 
-import MidnightBlue from '../assets/images/Midngiht_Blue.png';
-import VelvetRed from '../assets/images/Velvet Red (1).png';
-import SandBeige from '../assets/images/Sand Beige (1).png';
-import CharcoalImg from '../assets/images/Charcoal (1).png';
+import MidnightBlue from '../assets/images/Midngiht_Blue.webp';
+import VelvetRed from '../assets/images/Velvet Red (1).webp';
+import SandBeige from '../assets/images/Sand Beige (1).webp';
+import CharcoalImg from '../assets/images/Charcoal (1).webp';
 
-import RoyalCharcoal from '../assets/images/Bed - 1 (1).png';
-import RoyalSapphire from '../assets/images/Bed_blue - 2 (1).png';
+import RoyalCharcoal from '../assets/images/Bed - 1 (1).webp';
+import RoyalSapphire from '../assets/images/Bed_blue - 2 (1).webp';
 
-import MilanoMocha from '../assets/images/Bed_Type-3.png';
-import MilanoForest from '../assets/images/Bed_Type-3_color_3.png';
-import MilanoCopper from '../assets/images/Bed_Type-3_color_2.png';
+import MilanoMocha from '../assets/images/Bed_Type-3.webp';
+import MilanoForest from '../assets/images/Bed_Type-3_color_3.webp';
+import MilanoCopper from '../assets/images/Bed_Type-3_color_2.webp';
 
-import BrownMocha from '../assets/images/Bed_Type-4.png';
-import AshGreen from '../assets/images/Bed_Type-4_color_2-NBG.png';
-import SlateTeal from '../assets/images/Bed_Type-4_color_3-BNG.png';
-import RoseTaupe from '../assets/images/Bed_Type-4_color_4-NBG.png';
+import BrownMocha from '../assets/images/Bed_Type-4.webp';
+import AshGreen from '../assets/images/Bed_Type-4_color_2-NBG.webp';
+import SlateTeal from '../assets/images/Bed_Type-4_color_3-BNG.webp';
+import RoseTaupe from '../assets/images/Bed_Type-4_color_4-NBG.webp';
 
 interface ColorVariant {
   name: string;
@@ -92,7 +92,7 @@ export const ProductCustomizer: React.FC = () => {
   };
 
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (touchStart === null || touchEnd === null) return;
     
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
@@ -210,22 +210,28 @@ export const ProductCustomizer: React.FC = () => {
               </div>
 
               <div className="relative w-full h-full flex items-center justify-center p-6 md:p-10 select-none">
-                {bedTypes.map((bed, bedIndex) => (
-                  bed.colors.map((variant, colorIndex) => (
-                    <img 
-                      key={`${bed.id}-${variant.name}`}
-                      src={variant.image} 
-                      alt={`${bed.id} in ${variant.name}`}
-                      className={`absolute max-w-[85%] max-h-[85%] object-contain transition-all duration-500 ease-in-out ${
-                        currentBedIndex === bedIndex && selectedColorIndex === colorIndex && !isTransitioning
-                          ? 'opacity-100 scale-100 translate-x-0' 
-                          : currentBedIndex === bedIndex && isTransitioning && transitionDirection
-                            ? `opacity-0 ${transitionDirection === 'left' ? '-translate-x-10' : 'translate-x-10'}`
-                            : 'opacity-0 scale-95'
-                      }`}
-                    />
-                  ))
-                ))}
+                {bedTypes.map((bed, bedIndex) =>
+                  bed.colors.map((variant, colorIndex) => {
+                    const isSelected = currentBedIndex === bedIndex && selectedColorIndex === colorIndex;
+                    const isAnimatingBed = currentBedIndex === bedIndex && isTransitioning && transitionDirection;
+
+                    return (
+                      <img
+                        key={`${bed.id}-${variant.name}`}
+                        src={variant.image}
+                        alt={isSelected ? `${bedTranslation.name[lang]} — ${variant.name}` : ''}
+                        aria-hidden={!isSelected}
+                        className={`absolute max-w-[85%] max-h-[85%] object-contain transition-all duration-500 ease-in-out ${
+                          isSelected && !isTransitioning
+                            ? 'opacity-100 scale-100 translate-x-0'
+                            : isAnimatingBed
+                              ? `opacity-0 ${transitionDirection === 'left' ? '-translate-x-10' : 'translate-x-10'}`
+                              : 'opacity-0 scale-95'
+                        }`}
+                      />
+                    );
+                  })
+                )}
               </div>
 
               <div className="hidden lg:block absolute top-2 left-2 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-md z-30 max-w-[220px]">
@@ -244,6 +250,9 @@ export const ProductCustomizer: React.FC = () => {
                   <button
                     key={bed.id}
                     onClick={() => handleIndicatorClick(index)}
+                    type="button"
+                    aria-label={t.beds[bed.id as keyof typeof t.beds].name[lang]}
+                    aria-pressed={currentBedIndex === index}
                     className={`transition-all duration-300 rounded-full ${
                       currentBedIndex === index 
                         ? 'w-8 h-3 bg-gold-400' 
@@ -265,14 +274,17 @@ export const ProductCustomizer: React.FC = () => {
 
               <div className="space-y-6">
                 <div>
-                  <label className="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">
+                  <p className="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-4">
                     {t.customizer.availableColors[lang]} ({currentBed.colors.length})
-                  </label>
+                  </p>
                   <div className="flex flex-wrap gap-3">
                     {currentBed.colors.map((color, index) => (
                       <button
                         key={color.name}
                         onClick={() => handleColorChange(index)}
+                        type="button"
+                        aria-label={color.name}
+                        aria-pressed={selectedColorIndex === index}
                         className={`w-14 h-14 rounded-full shadow-md border-2 transition-all duration-300 transform hover:scale-110 focus:outline-none flex items-center justify-center ${
                           selectedColorIndex === index 
                             ? 'border-dark-900 scale-110 ring-4 ring-offset-2 ring-gold-400/30' 
@@ -290,25 +302,27 @@ export const ProductCustomizer: React.FC = () => {
                   
                   <div className="mt-4 flex flex-wrap gap-2">
                     {currentBed.colors.map((color, index) => (
-                      <span 
+                      <button
+                        type="button"
                         key={color.name}
                         onClick={() => handleColorChange(index)}
-                        className={`text-xs px-3 py-1.5 rounded-full cursor-pointer transition-all duration-200 ${
+                        aria-pressed={selectedColorIndex === index}
+                        className={`text-xs px-3 py-1.5 rounded-full transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold-600 ${
                           selectedColorIndex === index 
                             ? 'bg-dark-900 text-white' 
                             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                         }`}
                       >
                         {color.name}
-                      </span>
+                      </button>
                     ))}
                   </div>
                 </div>
 
                 <div className="pt-4 border-t border-gray-100">
-                  <label className="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">
+                  <p className="block text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">
                     {t.customizer.browseStyles[lang]}
-                  </label>
+                  </p>
                   <div className="flex gap-2">
                     {bedTypes.map((bed, index) => {
                       const bt = t.beds[bed.id as keyof typeof t.beds];
@@ -316,6 +330,8 @@ export const ProductCustomizer: React.FC = () => {
                         <button
                           key={bed.id}
                           onClick={() => handleIndicatorClick(index)}
+                          type="button"
+                          aria-pressed={currentBedIndex === index}
                           className={`flex-1 py-2 px-3 text-xs font-semibold rounded-lg transition-all duration-200 ${
                             currentBedIndex === index
                               ? 'bg-dark-900 text-white'
